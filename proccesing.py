@@ -1,11 +1,11 @@
 import pandas as pd
 import json
 
-# Load the JSON log file
+#Load the JSON log file
 with open('example_file.json', 'r') as file:
     data = [json.loads(line) for line in file]
 
-# Extract relevant fields directly into a DataFrame
+#Extract fields directly into a DataFrame
 log_data = [
     {
         'Timestamp': entry.get('@timestamp'),
@@ -22,19 +22,17 @@ log_data = [
     for entry in data
 ]
 
-# Create a DataFrame
 df = pd.DataFrame(log_data)
 
-# Initialize the Excel writer
 with pd.ExcelWriter('log_layers.xlsx', engine='openpyxl') as writer:
-    # 1. Raw Data Layer
+    #1.Raw Data Layer
     df.to_excel(writer, sheet_name='Raw Data', index=False)
 
-    # 2. Remove Duplicates based on 'Timestamp', 'Agent', and 'Application'
+    #2.Remove Duplicates based on 'Timestamp', 'Agent', and 'Application'
     df_no_duplicates = df.drop_duplicates(subset=['Timestamp', 'Agent', 'Application'])
     df_no_duplicates.to_excel(writer, sheet_name='No Duplicates', index=False)
 
-    # 3. Aggregated Data by Process Severity
+    #3.Aggregated Data by Process Severity
     for severity, df_severity in df.groupby('Severity'):
         # Handle any rows with missing severity
         if pd.isna(severity):
