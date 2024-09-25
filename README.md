@@ -77,14 +77,7 @@ python log_processing.py
 
 ---
 
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
-
 ## Contact
 
 For any issues or improvements, feel free to open an issue or contribute via pull requests.
 
----
-
-This README provides a clear explanation of the script's functionality, usage instructions, and customization options. You can adjust it according to your specific use case or project structure.
